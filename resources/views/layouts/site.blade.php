@@ -1,73 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>All Laravel - @yield('title')</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="{{ asset('backend/css/styles.css') }}" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Laravel - @yield('title')</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="{{ asset('backend/css/styles.css') }}" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            
-            <li class="nav-item">
-              <a class="nav-link" href="#">User</a>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="/">Brand</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"  aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="main_nav">
+      <ul class="navbar-nav">
+        <li class="nav-item active"> <a class="nav-link" href="/">Home </a> </li>
+        <li class="nav-item"><a class="nav-link" href="#"> About </a></li>
+        <li class="nav-item dropdown" id="myDropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">  Treeview menu  </a>
+          <ul class="dropdown-menu">
+            <li> <a class="dropdown-item" href="#"> Dropdown item 1 </a></li>
+            <li> <a class="dropdown-item" href="#"> Dropdown item 2 &raquo; </a>
+              <ul class="submenu dropdown-menu">
+                <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                  <ul class="submenu dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Multi level 2 &raquo;</a>
+                      <ul class="submenu dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Multi level 2.1</a></li>
+                        <li><a class="dropdown-item" href="#">Multi level 2.2</a></li>
+                        <li><a class="dropdown-item" href="#">Multi level 2.3</a></li>
+                        <li>
+                          <a class="dropdown-item" href="#">Multi level 2.4 &raquo;</a>
+                          <ul class="submenu dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Multi level 3.1</a></li>
+                            <li><a class="dropdown-item" href="#">Multi level 3.2</a></li>
+                            <li><a class="dropdown-item" href="#">Multi level 3.3</a></li>
+                            <li><a class="dropdown-item" href="{{ route('category.index') }}">Category</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="dropdown-item" href="#">Multi level 3</a></li>
+                  </ul>
+                </li>
+                <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+              </ul>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Employee - Salary
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">View Employee</a>
-                <a class="dropdown-item" href="#">Statistical Salary</a>
-                <a class="dropdown-item" href="#">Salary 2022</a>
-                <a class="dropdown-item" href="#">Salary 2023</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('category.index') }}">Category</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Promotions</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Insert Promotion</a>
-            </li>
-            
+            <li><a class="dropdown-item" href="#"> Dropdown item 3 </a></li>
+            <li><a class="dropdown-item" href="#"> Dropdown item 4 </a></li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </div>
-    </nav>
-    <div class="container">
-
-        @yield('content')
-        
+        </li>
+      </ul>
     </div>
-    
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- navbar-collapse.// -->
+    </div>
+    <!-- container-fluid.// -->
+  </nav>
+  <div class="container">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="{{ asset('backend/js/scripts.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="{{ asset('backend/assets/demo/chart-area-demo.js') }}"></script>
-<script src="{{ asset('backend/assets/demo/chart-bar-demo.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-<script src="{{ asset('backend/js/datatables-simple-demo.js') }}"></script>
+    @yield('content')
+    
+  </div>
+ 
+  <script src="{{ asset('backend/js/scripts.js') }}"></script>
 </body>
 </html>
