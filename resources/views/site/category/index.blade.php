@@ -23,43 +23,57 @@
 @endif
 
 
-<table class="table table-striped">
-    <thead>
+<table id="category" class="table table-striped" style="width:100%">
+  <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Status</th>
-        <th scope="col">Delayed</th>
-        <th scope="col">Destination</th>
-        <th scope="col">Slug</th>
-        <th scope="col">Action</th>
+          <th>#</th>
+          <th>Name</th>
+          <th>Slug</th>
+          <th>Created Date</th>
+          <th>Action</th>
       </tr>
-    </thead>
-    <tbody>
-    @php $count = request()->count && request()->page > 1 ? request()->count : 0; @endphp
-    @foreach ( $categories as $category)
-    @php $count++ @endphp
+  </thead>
+  <tbody>
+      @php
+          $count = 0;
+          $tableData = getCategoriesTable($categories);
+      @endphp
+
+      @foreach ($tableData as $row)
+          @php
+              $count++;
+          @endphp
+
+          <tr>
+              <td>{{ $count }}</td>
+              <td>{!! $row['name'] !!}</td>
+              <td>{!! $row['slug'] !!}</td>
+              <td>{!! $row['created_at'] !!}</td>
+              <td>
+                  {!! $row['edit'] !!}
+                  {!! $row['delete'] !!}
+                  {!! $row['link'] !!}
+              </td>
+          </tr>
+      @endforeach
+  </tbody>
+  <tfoot>
       <tr>
-        <th scope="row">{{ $count }}</th>
-        <td><a href="{{ route('category.show', ['slugCate' => str_slug($category->name), 'id' => $category->id]) }}">{{ $category->name }}</a></td>
-        <td>{{ $category->status }}</td>
-        <td>{{ $category->delayed }}</td>
-        <td>{{ $category->destination }}</td>
-        <td>{{ $category->slug }}</td>
-        <td>
-            <a href="{{ route('category.show', ['slugCate' => str_slug($category->name), 'id' => $category->id]) }}" class="btn btn-xs btn-primary" title="Detail">Detail</a>
-            <a href="{{ route('category.edit', $category->id) }}" class="btn btn-xs btn-primary" title="Edit">Edit</a>
-            <a href="{{ route('category.delete', $category->id) }}" class="btn btn-xs btn-danger" title="Detail">Delete</a>
-            @if ($category->status == 1 && $category->destination == 'San Deigo')
-              <a href="{{ route('category.updatedelay', $category->id) }}" class="btn btn-xs btn-danger" title="Update">Delay Update</a>
-            @endif
-        </td>
+          <th>#</th>
+          <th>Name</th>
+          <th>Slug</th>
+          <th>Created Date</th>
+          <th>Action</th>
       </tr>
-    @endforeach
-    </tbody>
-  </table>
-  <div style="display: flex; justify-content: center; padding-bottom: 20px; justify-content: space-between; align-items: center;">
-    <div class="count-categories">{{ $categories->count() }} Categories total</div>
-    {{-- <div class="pagination">{{ $categories->appends(['count' => $count])->links() }}</div> --}}
-  </div>
+  </tfoot>
+</table>
+
+<script>
+  $(document).ready(function() {
+    $('#category').DataTable({
+      "lengthMenu": [5, 10, 25, 50, 100, 500, 1000],
+      "pageLength": 25
+    });
+  });
+</script>
 @endsection
