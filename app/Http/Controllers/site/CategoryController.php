@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\site;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -20,13 +20,11 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $pageTitle = 'Category';
-        $listTitle = 'This is Category';
-        $createTitle = 'Create Category';
+        $pageTitle = __('title.index.category');
+        $listTitle = __('title.list.category');
+        $createTitle = __('title.create.category');
+        
         $categories = $this->categoryModel->getAll();
-
-        // echo "<pre>";
-        // print_r($categories);
 
         return view('site.category.index', compact('categories', 'pageTitle', 'listTitle', 'createTitle'));
     }
@@ -36,13 +34,19 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $pageTitle = __('title.index.category');
+        $listTitle = __('title.list.category');
+        $createTitle = __('title.create.category');
+
+        $categories = $this->categoryModel->getAll();
+
+        return view('site.category.create',  compact('categories', 'pageTitle', 'listTitle', 'createTitle'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         //
     }
@@ -52,8 +56,9 @@ class CategoryController extends Controller
      */
     public function show($str_slug, $id)
     {
+        // echo $id;
         // $getId = $this->categoryModel->getById($id);
-        return view('site.categories.show');
+        // return view('site.categories.show');
     }
 
     /**
@@ -61,13 +66,22 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pageTitle = __('title.edit.category');
+
+        $category = $this->categoryModel->findId($id);
+        $categories = $this->categoryModel->getAll();
+
+        if (!$category) {
+            abort(404);
+        }
+        $breadcrumbs = getBreadcrumbs($category->id);
+        return view('site.category.edit', compact('pageTitle', 'category', 'categories', 'breadcrumbs'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, string $id)
     {
         //
     }

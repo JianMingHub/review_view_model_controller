@@ -31,9 +31,19 @@ class Category extends Model
     //     return $this->hasMany(Product::class);         
     // }
 
-    public function sub()
+    public function children()
     {
         return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
+
+    public function subCategories()
+    {
+        return $this->children()->with('subCategories');
+    }
+
+    public function getCategories()
+    {
+        return $this->with('subCategories')->whereParentId(0)->latest('created_at')->get();
     }
 
     // Mutator get Slug
@@ -48,6 +58,11 @@ class Category extends Model
     public function getAll()
     {
         return $this->get();
+    }
+
+    public function findId($id)
+    {
+        return $this->findOrFail($id);
     }
 
     // function getGenderName() {

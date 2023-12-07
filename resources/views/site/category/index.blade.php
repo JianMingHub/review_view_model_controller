@@ -25,44 +25,45 @@
 
 <table id="category" class="table table-striped" style="width:100%">
   <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Slug</th>
-      <th>Created by</th>
-      <th>Created date</th>
-      <th >Action</th>
-    </tr>
+      <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Slug</th>
+          <th>Created Date</th>
+          <th>Action</th>
+      </tr>
   </thead>
   <tbody>
-    @php $count = 0; @endphp
-    @foreach ( $categories as $category)
-    @php $count++ @endphp
-      <tr>
-        <td>{{ $count }}</td>
-        <td><a href="{{ route('category.show', ['slugCate' => str_slug($category->name), 'id' => $category->id]) }}">{{ $category->name }}</a></td>
-        <td>{{ $category->slug }}</td>
-        <td>{{ $category->slug }}</td>
-        <td>{{ $category->created_at }}</td>
-        <td>
-          <a href="{{ route('category.show', ['slugCate' => str_slug($category->name), 'id' => $category->id]) }}" class="btn btn-sm btn-primary" title="Detail">Detail</a>
-          <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-primary" title="Edit">Edit</a>
-          <a href="{{ route('category.delete', $category->id) }}" class="btn btn-sm btn-danger" title="Detail">Delete</a>
-          @if ($category->status == 1 && $category->destination == 'San Deigo')
-            <a href="{{ route('category.updatedelay', $category->id) }}" class="btn btn-sm btn-danger" title="Update">Delay Update</a>
-          @endif
-        </td>
-      </tr>
-    @endforeach
+      @php
+          $count = 0;
+          $tableData = getCategoriesTable($categories);
+      @endphp
+
+      @foreach ($tableData as $row)
+          @php
+              $count++;
+          @endphp
+
+          <tr>
+              <td>{{ $count }}</td>
+              <td>{!! $row['name'] !!}</td>
+              <td>{!! $row['slug'] !!}</td>
+              <td>{!! $row['created_at'] !!}</td>
+              <td>
+                  {!! $row['edit'] !!}
+                  {!! $row['delete'] !!}
+                  {!! $row['link'] !!}
+              </td>
+          </tr>
+      @endforeach
   </tbody>
   <tfoot>
       <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Slug</th>
-        <th>Created by</th>
-        <th>Created date</th>
-        <th >Action</th>
+          <th>#</th>
+          <th>Name</th>
+          <th>Slug</th>
+          <th>Created Date</th>
+          <th>Action</th>
       </tr>
   </tfoot>
 </table>
